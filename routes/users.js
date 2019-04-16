@@ -1,6 +1,12 @@
 var router = require('express').Router();
 var User = require('./../models/User');
 
+router.get('/',(req,res) => {
+  User.find({}).populate('listes').then(users => {
+    res.render('users/index.html', {users: users}) ;
+  });
+});
+
 router.post('/new', (req, res)=> {
   data = req.body;
 	User.find({}).then(users => {

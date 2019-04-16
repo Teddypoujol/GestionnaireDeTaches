@@ -5,13 +5,9 @@ var Task = require('../models/Task');
 
 
 
-router.get('/',(req,res) => {
-    Liste.find({}).populate('tasks').then(listes => {
-      res.render('listes/index.html', {listes: listes}) ;
-    });
-});
 
-router.get('/new', (req, res)=> {
+
+router.get('/:new', (req, res)=> {
 	Task.find({}).then(tasks => {
 		var liste = new Liste();
 		res.render('listes/edit.html', {liste: liste , tasks: tasks, endpoint: '/'});

@@ -16,6 +16,6 @@ taskSchema.virtual('listes',{
 });
 
 
-var tasks = mongoose.model('tasks',taskSchema);
+var Task = mongoose.model('Task',taskSchema);
 
-module.exports = tasks;
+module.exports = Task;

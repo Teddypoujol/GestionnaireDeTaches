@@ -46,7 +46,8 @@ app.use('/images', express.static(__dirname + '/images'));
 
 app.use('/css',express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/tasks',require('./routes/tasks'));
-app.use('/',require('./routes/listes'));
+app.use('/listes',require('./routes/listes'));
+app.use('/',require('./routes/users'));
 
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
