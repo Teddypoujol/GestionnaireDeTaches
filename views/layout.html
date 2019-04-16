@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <title>Mon gestionnaire de taches</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+      color:black;
+      background-image:url("/images/image_de_fond.jpg");
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+    }
+    h1 {
+      text-align:center;
+    }
+  </style>
+  </head>
+  <body>
+      
+    <div class="container">
+      <a href="/">
+          <h1 class="text-center"> Mes taches</h1>
+      </a>
+    
+      
+      <h2 class="text-center"> La liste</h2>
+        {% block content %} {% endblock %}
+      <hr>
+      <div class="text-center">
+          Poujol Teddy
+      </div>
+  </div>
+  </body>
+  
+</html>

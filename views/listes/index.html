@@ -1,0 +1,18 @@
+
+{% extends "layout.html" %}
+
+{% block content %}
+    <h2 > Ma liste </h2>
+    <a href="/new" class="btn btn-default" style="background-color: orange">Ajouter une liste</a>
+    <hr>
+    {% for s in listes%}
+        <div class="d-flex flex-wrap">
+            <div class="class=d-flex flex-wrap">
+                <a href='/{{s._id}}' class="btn btn-primary" style="background-color: grey">{{s.name}} n°:{{s.number}}</a>
+               
+                <hr>
+            </div>
+            
+        </div>
+    {% endfor %}
+{% endblock %}

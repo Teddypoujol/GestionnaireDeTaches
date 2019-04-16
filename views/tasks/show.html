@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block content %}
+     
+       <hr>
+    {% for s in tasks%}
+        <div class="panel panel-default">
+            <div class="panel-primary">
+                <a href='/{{s._id}}' >{{s.name}} n°:{{s.number}}</a>
+            </div>
+            <div class="panel-body">
+                    {{s.description}}
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}
