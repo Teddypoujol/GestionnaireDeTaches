@@ -25,8 +25,8 @@ router.post('/new', (req, res)=> {
       // save user to database
       newUser.save({}, function(err) {
         if (err)
-          cb(err);
-        cb();
+          res.send(err);
+        res.send();
       });
 		res.render('users/create.html', {user: user, users: users, endpoint: '/'});
 		})
