@@ -7,14 +7,14 @@ var Task = require('../models/Task');
 
 
 
-router.get('/:new', (req, res)=> {
+router.get('listes/new', (req, res)=> {
 	Task.find({}).then(tasks => {
 		var liste = new Liste();
 		res.render('listes/edit.html', {liste: liste , tasks: tasks, endpoint: '/'});
 		})
 });
 
-router.get('/edit/:id', (req, res)=> {
+router.get('listes/edit/:id', (req, res)=> {
 	Task.find({}).then(tasks => {
 		Liste.findById(req.params.id).then( liste => {
 			res.render('listes/edit.html', {liste: liste, tasks: tasks, endpoint: '/' + liste._id.toString() });
