@@ -22,13 +22,13 @@ router.get('listes/edit/:id', (req, res)=> {
 	});
 });
 
-router.get('/delete/:id', (req , res) => {
+router.get('listes/delete/:id', (req , res) => {
 	Liste.findOneAndRemove({_id:req.params.id}).then(() => {
 		 res.redirect('/');
 	});
 });
 
-router.get('/:id', (req, res)=> {
+router.get('listes/:id', (req, res)=> {
 	Liste.findById(req.params.id).populate('tasks').then(liste => {
 		res.render('listes/show.html', {liste: liste});
 	},
