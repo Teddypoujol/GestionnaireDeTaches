@@ -9,6 +9,10 @@ router.get('/',(req,res) => {
   });
 });
 
+router.get('/newuser',(req,res) => {
+  res.render('users/index.html') ;
+});
+
 router.post('/new', (req, res)=> {
   data = req.body;
 	User.find({}).then(users => {
@@ -24,7 +28,7 @@ router.post('/new', (req, res)=> {
           cb(err);
         cb();
       });
-		res.render('authentification/create.html', {user: user, users: users, endpoint: '/'});
+		res.render('users/create.html', {user: user, users: users, endpoint: '/'});
 		})
 });
 
