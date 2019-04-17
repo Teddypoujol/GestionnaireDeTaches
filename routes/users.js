@@ -10,7 +10,7 @@ router.get('/',(req,res) => {
 });
 
 router.get('/newuser',(req,res) => {
-  res.render('users/index.html') ;
+  res.render('users/create.html') ;
 });
 
 router.post('/new', (req, res)=> {
