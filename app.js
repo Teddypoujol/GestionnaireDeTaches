@@ -45,6 +45,7 @@ app.use(upload.single('file'));
 app.use('/images', express.static(__dirname + '/images'));
 
 app.use('/css',express.static(__dirname + '/node_modules/bootstrap/dist/css'));
+app.use('/',require('./routes/users'));
 app.use('/tasks',require('./routes/tasks'));
 app.use('/listes',require('./routes/listes'));
 

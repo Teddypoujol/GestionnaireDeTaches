@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var User = require('./../models/User');
+var User = require('../models/User');
 var Liste = require('../models/Liste');
 var Task = require('../models/Task');
 
