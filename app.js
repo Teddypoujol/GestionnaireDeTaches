@@ -40,9 +40,11 @@ require('./models/Task');
 var app = express();
 
 
-app.use(bodyparser.urlencoded());
+app.use(bodyparser.urlencoded({ extended: false}));
+app.use(bodyparser.json());
 app.use(upload.single('file'));
 app.use('/images', express.static(__dirname + '/images'));
+app.use('/views', express.static(__dirname + '/views'));
 
 app.use('/css',express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/',require('./routes/users'));

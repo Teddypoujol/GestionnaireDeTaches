@@ -9,6 +9,8 @@ router.get('/',(req,res) => {
   });
 });
 
+
+
 router.get('/newuser',(req,res) => {
   res.render('users/create.html') ;
 });
@@ -28,44 +30,50 @@ router.post('/new', (req, res)=> {
           res.send(err);
         res.send();
       });
-		res.render('users/create.html', {user: user, users: users, endpoint: '/'});
+		
 		})
 });
 
 
-router.get('/connect', (req, res)=> {
+router.post('/connect', function(req, res)  {
     // attempt to authenticate user
+    
+    data = req.body;
+    
+    
     User.getAuthenticated(data.username, data.password,  function(err, user, reason) {
     if (err)
-      cb(null, err);
+      res.send(err);
     // login was successful if we have a user
     if (user) {
       // handle login success
-      cb(user, null);
+      res.send(user);
       return;
     }
     // otherwise we can determine why we failed
     var reasons = User.failedLogin;
     switch (reason) {
       case reasons.NOT_FOUND:
-        cb(null, 'Utilisateur non trouvé ou mot de passe incorrect');
+        res.send('Utilisateur non trouvé ou mot de passe incorrect');
         return;
       case reasons.PASSWORD_INCORRECT:
-        cb(null, 'Utilisateur non trouvé ou mot de passe incorrect');
+        res.send('Utilisateur non trouvé ou mot de passe incorrect');
         return;
           // note: these cases are usually treated the same - don't tell
           // the user why the login failed, only that it did
           //break;
       case reasons.MAX_ATTEMPTS:
-        cb(null, "Tu as atteints la limite d'essais de connexion");
+        res.send("Tu as atteints la limite d'essais de connexion");
         return;
           // send email or otherwise notify user that account is
           // temporarily locked
           //break;
     }
   });
-  res.redirect('/layout.html');
-		});
+});
 
+router.get('/espace',(req,res) => {
+    res.render('listes/index.html') ;
 
+});
 module.exports = router;

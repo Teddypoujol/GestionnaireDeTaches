@@ -1,54 +1,34 @@
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
+<html ng-app="creation">
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+    <link href="/views/users/style.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="/views/users/index.js"></script>
+</head>
 
-<form class="form-horizontal" action='/new' method="POST">
-  <fieldset>
-    <div id="legend">
-      <legend class="">Register</legend>
+<!------ Include the above in your HEAD tag ---------->
+<body ng-controller="mainController">
+    <div class="wrapper fadeInDown">
+        <h1 > Mon gestionnaire de taches</h2>
+        <h2 > S'enregistrer</h2>
+      <div id="formContent">
+        <!-- Tabs Titles -->
+  
+        {% raw %}
+        {% endraw %}
+    
+        <!-- Login Form -->
+      <form action='/new' method="POST">
+          <input type="text" id="login" class="fadeIn second" name="login" placeholder="Votre nom d'utilisateur" ng-model="insData.username">
+          <input type="text" id="password" class="fadeIn third" name="login" placeholder="votre mot de passe" ng-model="insData.password">
+          <input type="submit" class="fadeIn fourth" value="S'enregistrer'" ng-click="enregistrer()">
+      </form>
+
     </div>
-    <div class="control-group">
-      <!-- Username -->
-      <label class="control-label"  for="username">Username</label>
-      <div class="controls">
-        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
-        <p class="help-block">Username can contain any letters or numbers, without spaces</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- E-mail -->
-      <label class="control-label" for="email">E-mail</label>
-      <div class="controls">
-        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
-        <p class="help-block">Please provide your E-mail</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Password-->
-      <label class="control-label" for="password">Password</label>
-      <div class="controls">
-        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
-        <p class="help-block">Password should be at least 4 characters</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Password -->
-      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
-      <div class="controls">
-        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
-        <p class="help-block">Please confirm password</p>
-      </div>
-    </div>
- 
-    <div class="control-group">
-      <!-- Button -->
-      <div class="controls">
-        <button class="btn btn-success">Register</button>
-      </div>
-    </div>
-  </fieldset>
-</form>
+  </div>
+
+</body>
+</html>
