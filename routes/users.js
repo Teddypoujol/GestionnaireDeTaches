@@ -15,7 +15,7 @@ router.get('/newuser',(req,res) => {
   res.render('users/create.html') ;
 });
 
-router.post('/new', (req, res)=> {
+router.post('/newUser', (req, res)=> {
   data = req.body;
 	User.find({}).then(users => {
     var newUser = new User({

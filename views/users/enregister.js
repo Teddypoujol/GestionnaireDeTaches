@@ -2,24 +2,25 @@
 
 var enregistrer = angular.module('enregistrer', []);
 
-function mainController($scope, $http) {
+enregistrer.controller("mainController", function($scope, $http) {
     $scope.insData = {};
 
     $scope.enregistrer = function() {
-        if(validateForm(event)){
+        console.log($scope.insData)
+        // if(validateForm(event)){
             $http.post('/newUser', $scope.insData)
             .success(function(data) {
                 $scope.insData = {};
-                window.location.replace("/confirmation")
+                // window.location.replace("/confirmation")
             })
             .error(function(data) {
                 console.log('Error: ' + data);
             });
-        }
+        // }
         
     };
 
   
     
     
-}
+});
