@@ -2,8 +2,16 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<html ng-app="espace">
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>    
+<script src="/views/listes/index.js"></script>
+
+    <div ng-controller="mainController">
     <h2 > Ma liste </h2>
     <a href="/new" class="btn btn-default" style="background-color: orange">Ajouter une liste</a>
+    {% raw %}
+        {{user.id}}
+    {% endraw %}
     <hr>
     {% for s in listes%}
         <div class="d-flex flex-wrap">
@@ -15,4 +23,7 @@
             
         </div>
     {% endfor %}
+</div>
+    </html>
 {% endblock %}
+
