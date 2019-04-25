@@ -76,4 +76,9 @@ router.get('/espace',(req,res) => {
     res.render('listes/index.html') ;
 
 });
+
+router.get('/confirmation',(req,res) => {
+  res.render('users/index.html') ;
+
+});
 module.exports = router;

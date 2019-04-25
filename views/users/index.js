@@ -10,7 +10,8 @@ function mainController($scope, $http) {
             .success(function(data) {
                 console.log(data)
                 $scope.user._id=data._id;
-                setCookie('user', $scope.user._id, 0.01);
+                $scope.user.listes=data.listes;
+                setCookie('user', $scope.user.listes, 0.01);
                 window.location.replace("/espace")
             })
             .error(function(data) {

@@ -4,15 +4,15 @@
  <div class="row">
         
         <div class="col-sm-9">
-                <h2>{{liste.name}} N°:{{liste.number}}</h2>
+                <h2>{{user.liste.name}} </h2>
                 <a href="/edit/{{liste._id}}" class="btn btn-warning">Editer</a>
                 <a href="/delete/{{liste._id}}" class="btn btn-danger">Supprimer</a>
                 <hr>
                 <p class="lead">
-                    {{liste.description}}
+                    {{user.liste.description}}
                 </p>
                 <h3> Taches :</h3>
-                {% for s in liste.tasks %}
+                {% for s in user.listes.tasks %}
                 <a href="/tasks/{{s.name}}" class="badge badge-pill badge-primary">{{s.name}} </a>
                 {%endfor%}
         </div>
