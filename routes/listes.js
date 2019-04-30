@@ -1,7 +1,7 @@
 var User = require('./../models/User');
 var router = require('express').Router();
 var Liste = require('../models/Liste');
-
+var cookie = require('cookie');
 
 
 
@@ -14,11 +14,36 @@ router.get('/',(req,res) => {
 });
 
 
-router.get('listes/new', (req, res)=> {
-	Task.find({}).then(tasks => {
-		var liste = new Liste();
-		res.render('listes/edit.html', {liste: liste , tasks: tasks, endpoint: '/'});
-		})
+router.post('/new', (req, res)=> {
+		if(req.headers.cookie === undefined){
+			res.status(500).send({error : "Merci de vous connecter."});
+		} else {
+			var liste = new Liste();
+			
+			var cookies = req.headers.cookie;
+			cookies = cookie.parse(cookies);
+			cookies = JSON.parse(cookies.cookies);
+			console.log(cookies);
+
+			liste.name = req.body.name;
+			liste.description = req.body.description;
+			liste.tasks = req.body.tasks;
+		
+			liste.save(function(err){
+				if(err) return handleError(err);
+
+				User.findOne({username: cookies.username}, function(err, res){
+					if(err) return handleError(err);
+
+					User.updateOne({username: cookies.username}, {$addToSet : {listes: liste._id}}, function(err){
+						if(err) return handleError(err);
+					});
+				});
+			});		
+
+		}
+		
+
 });
 
 router.get('listes/edit/:id', (req, res)=> {
@@ -44,25 +69,6 @@ router.get('listes/:id', (req, res)=> {
 
 
 
-router.post('/:id?', (req, res) => {
-	new Promise((resolve, reject) => {
-		if(req.params.id){
-			Liste.findById(req.params.id).then(resolve, reject);
-		}
-		else{
-			resolve(new Liste())
-		}
-	}).then(liste => {
-		liste.name = req.body.name;
-		liste.number = req.body.number;
-		liste.description = req.body.description;
-		liste.tasks = req.body.tasks;
-
-		return liste.save();
-	}).then(() => {
-		res.redirect('/');
-	});
-});
 
 
 module.exports = router;

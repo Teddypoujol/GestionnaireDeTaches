@@ -1,9 +1,19 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="views/style.css" rel="stylesheet">
 <div>
-    <h2 > Ma liste {{user.username}} </h2>
-    <a href="listes/new" class="btn btn-default" style="background-color: orange">Ajouter une liste</a>
-    
+    <h2 > La liste de {{user.username}} </h2>
+    <form ng-submit="addList()">
+        <input type="text"  class="fadeIn second"  placeholder="Nom de la liste " ng-model="Data.name">
+        <input type="text"  class="fadeIn third"  placeholder="Petite description" ng-model="Data.description">
+        <input type="submit" class="fadeIn fourth" value="Ajouter">
+    </form>
     <hr>
+
+
 </div>

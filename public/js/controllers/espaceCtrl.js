@@ -4,13 +4,12 @@ todoApp.controller('EspaceCtrl',['$cookies','$scope', '$state','$http', function
     
     $scope.addList = function(){
         var liste = {
-            name: $scope.liste.name,
-            description: $scope.liste.description,
-            tasks: $scope.liste.tasks
+            name: $scope.Data.name,
+            description: $scope.Data.description,
         };
         $http({
             method: 'POST',
-            url: '/addList',
+            url: 'listes/new',
             data: liste
         }).then(function successCallback(response){
             callback(response);
