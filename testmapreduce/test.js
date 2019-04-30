@@ -21,7 +21,7 @@ query.findOne(function (err, user) {
       console.log(list1)
     ListModel.findById(list1, function(err, liste){
         if (err) return handleError(err);
-        console.log(liste);
+        console.log(liste.name);
 
       });
   };

@@ -1,10 +1,17 @@
-
+var User = require('./../models/User');
 var router = require('express').Router();
 var Liste = require('../models/Liste');
-var Task = require('../models/Task');
 
 
 
+
+router.get('/',(req,res) => {
+	res.render('listes/index.html');
+});
+  
+ router.get('/#?list=:id', function(req, res) {
+    res.render('listes/index.html');
+});
 
 
 router.get('listes/new', (req, res)=> {

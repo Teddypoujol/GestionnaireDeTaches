@@ -3,7 +3,6 @@ var mongoose = require('mongoose'),
     bcrypt = require('bcrypt'),
     SALT_WORK_FACTOR = 10;
 
-bcrypt = require('bcrypt'),
 SALT_WORK_FACTOR = 10,
 // these values can be whatever you want - we're defaulting to a
 // max of 5 attempts, resulting in a 2 hour lock
@@ -81,9 +80,8 @@ var reasons = UserSchema.statics.failedLogin = {
 };
 
 UserSchema.statics.getAuthenticated = function(username, password, cb) {
-    this.findOne({ username: username }, function(err, user) {
+    this.findOne({ username: "teddy" }, function(err, user) {
         if (err) return cb(err);
-
         // make sure the user exists
         if (!user) {
             return cb(null, null, reasons.NOT_FOUND);

@@ -2,12 +2,10 @@ var mongoose = require('mongoose');
 
 var listeSchema = new mongoose.Schema({
     name: String,
-    number: Number,
     description: String,
     tasks: [
         {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Task'
+        champs: String
     }
     ]
 

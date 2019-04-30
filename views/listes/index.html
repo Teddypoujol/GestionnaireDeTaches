@@ -10,20 +10,10 @@
     <h2 > Ma liste </h2>
     <a href="listes/new" class="btn btn-default" style="background-color: orange">Ajouter une liste</a>
     {% raw %}
-        {{user.id}}
-        
+        {{laliste.name}}    
     {% endraw %}
     <hr>
-    {% for s in user.listes%}
-        <div class="d-flex flex-wrap">
-            <div class="class=d-flex flex-wrap">
-                <a href='/{{s._id}}' class="btn btn-primary" style="background-color: grey">{{s.name}}</a>
-               
-                <hr>
-            </div>
-            
-        </div>
-    {% endfor %}
+
 </div>
     </html>
 {% endblock %}

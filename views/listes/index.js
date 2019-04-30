@@ -6,7 +6,7 @@ function mainController($scope, $http) {
     $scope.user = {};
     $scope.user.id = getCookie('user');
     
-    $http.post('/laliste')
+    $http.post('/listes/new')
         .success(function(data) {
             $scope.laliste = data;
             console.log(data);
