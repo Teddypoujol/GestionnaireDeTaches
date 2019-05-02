@@ -5,14 +5,21 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+<button ng-click="deconnexion()">Déconnexion</button>
 <link href="views/style.css" rel="stylesheet">
 <div>
-    <h2 > La liste de {{user.username}} </h2>
-    <form ng-submit="addList()">
-        <input type="text"  class="fadeIn second"  placeholder="Nom de la liste " ng-model="Data.name">
-        <input type="text"  class="fadeIn third"  placeholder="Petite description" ng-model="Data.description">
-        <input type="submit" class="fadeIn fourth" value="Ajouter">
-    </form>
+    <h2 > Les listes de {{user.username}} </h2>
+    <div class="" ng-repeat="list in listes">{{list.name}}
+        <button ng-click="deleteList(list._id)">X</button>
+    </div>
+    <div class="container">
+        <form ng-submit="addList()">
+            <input type="text"  class="fadeIn second"  placeholder="Nom de la liste " ng-model="Data.name">
+            <input type="text"  class="fadeIn third"  placeholder="Petite description" ng-model="Data.description">
+            <input type="submit" class="fadeIn fourth" value="Ajouter">
+        </form>
+    </div>
+
     <hr>
 
 

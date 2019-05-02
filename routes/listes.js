@@ -32,11 +32,12 @@ router.post('/new', (req, res)=> {
 			liste.save(function(err){
 				if(err) return handleError(err);
 
-				User.findOne({username: cookies.username}, function(err, res){
+				User.findOne({username: cookies.username}, function(err, response){
 					if(err) return handleError(err);
 
 					User.updateOne({username: cookies.username}, {$addToSet : {listes: liste._id}}, function(err){
 						if(err) return handleError(err);
+						res.status(200).send({Error: "Ajoutée"})
 					});
 				});
 			});		
@@ -46,18 +47,44 @@ router.post('/new', (req, res)=> {
 
 });
 
-router.get('listes/edit/:id', (req, res)=> {
-	Task.find({}).then(tasks => {
-		Liste.findById(req.params.id).then( liste => {
-			res.render('listes/edit.html', {liste: liste, tasks: tasks, endpoint: '/' + liste._id.toString() });
+router.get('/get', (req, res)=> {
+	if(req.headers.cookie === undefined){
+		res.status(500).send({error : "Merci de vous connecter."});
+	} else {			
+		var cookies = req.headers.cookie;
+		cookies = cookie.parse(cookies);
+		cookies = JSON.parse(cookies.cookies);
+
+		User.findOne({username: cookies.username}, function(err, response){
+			console.log(response);
+			if(err) return handleError(err);
+
+			var query = {_id : {$in: response.listes}};
+			Liste.find(query, function(err, liste){
+				if(err) throw err;
+				res.status(200).send(liste);
+			});
 		});
-	});
+	}
 });
 
-router.get('listes/delete/:id', (req , res) => {
-	Liste.findOneAndRemove({_id:req.params.id}).then(() => {
-		 res.redirect('/');
-	});
+router.delete('/delete/:id', (req , res) => {
+	if(req.headers.cookie === undefined){
+		res.status(500).send({error : "Merci de vous connecter."});
+	} else {			
+		var cookies = req.headers.cookie;
+		cookies = cookie.parse(cookies);
+		cookies = JSON.parse(cookies.cookies);
+
+		Liste.findOneAndRemove({_id:req.params.id}, function(err, response){
+			if(err) return handleError(err);
+			var change = {$pull: {listes: {$in: req.params.id}}};
+			User.updateOne({username: cookies.username}, change, function(err,result){
+				if(err) return handleError(err);
+				res.status(200).send({Error : "Supprimée"});
+			});
+		});
+	}
 });
 
 router.get('listes/:id', (req, res)=> {

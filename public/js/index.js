@@ -16,6 +16,13 @@ var todoApp = angular.module('todoApp',['ui.router','ngCookies'])
         controller : 'EspaceCtrl'
     };
 
+    var registerState = {
+        name : 'register',
+        templateUrl : '../views/register.html',
+        url : '/register',
+        controller : 'ConnectCtrl'
+    };
+    $stateProvider.state(registerState);
     $stateProvider.state(connectionState);
     $stateProvider.state(profilState);
 })

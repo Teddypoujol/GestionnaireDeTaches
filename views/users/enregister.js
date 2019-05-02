@@ -11,7 +11,7 @@ enregistrer.controller("mainController", function($scope, $http) {
             $http.post('/newUser', $scope.insData)
             .success(function(data) {
                 $scope.insData = {};
-                 window.location.replace("/confirmation")
+                
             })
             .error(function(data) {
                 console.log('Error: ' + data);

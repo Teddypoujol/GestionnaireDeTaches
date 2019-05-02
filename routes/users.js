@@ -4,23 +4,29 @@ var Liste = require('../models/Liste');
 
 
 
-router.post('/newUser', (req, res)=> {
+router.post('/register', function(req, res) {
   data = req.body;
-  console.log(data);
-	User.find({}).then(users => {
-    var newUser = new User({
-      username: data.username,
-      password: data.password,
+  User.findOne({username: data.username},function(err, response){
+    if(err) throw err;
+
+    if(!response){
+      var newUser = new User({
+        username: data.username,
+        password: data.password,
+        listes : {}
       });
-    
-      // save user to database
-      newUser.save({}, function(err) {
-        if (err)
-          res.send(err);
-        res.send();
+      console.log(newUser);
+
+      User.create(newUser,function(err){
+        if (err) res.status(500).send(err);
+
+        res.status(200).send({error: "Ajoutée"});
+
       });
-		
-		})
+    } else if (response.username == data.username) {
+      res.status(500).send({error : "Un utilisateur avec ce pseudonyme existe déjà"});
+    }
+  });
 });
 
 
