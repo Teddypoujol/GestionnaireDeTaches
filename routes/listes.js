@@ -47,6 +47,7 @@ router.post('/new', (req, res)=> {
 
 });
 
+
 router.get('/get', (req, res)=> {
 	if(req.headers.cookie === undefined){
 		res.status(500).send({error : "Merci de vous connecter."});
@@ -58,14 +59,21 @@ router.get('/get', (req, res)=> {
 		User.findOne({username: cookies.username}, function(err, response){
 			console.log(response);
 			if(err) return handleError(err);
-
-			var query = {_id : {$in: response.listes}};
-			Liste.find(query, function(err, liste){
-				if(err) throw err;
-				res.status(200).send(liste);
-			});
-		});
+			if(response){
+				var query = {_id : {$in: response.listes}};
+				Liste.find(query, function(err, liste){
+					if(err) throw err;
+					if(!liste){
+						res.status(200).send({});
+					} else {
+						res.status(200).send(liste);
+					}
+				});
+			} else {
+				res.status(200).send({});
+			}
 	}
+		)}
 });
 
 router.delete('/delete/:id', (req , res) => {

@@ -13,7 +13,7 @@ router.post('/register', function(req, res) {
       var newUser = new User({
         username: data.username,
         password: data.password,
-        listes : {}
+        listes : []
       });
       console.log(newUser);
 
