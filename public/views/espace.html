@@ -9,23 +9,51 @@
 <div>
     <h2 > Les listes de {{user.username}} </h2>
     <button class="btn btn-warning" ng-click="deconnexion()">Déconnexion</button>
-    <div class="text-primary" ng-repeat="list in listes">{{list.name}}
-        <button class="btn btn-danger" ng-click="deleteList(list._id)">x</button>
-        <div class="text-primary" ng-repeat="t in list.tasks">
-            {{t.name}}
-        </div>
-        <input type="text2" class="form-control-plaintext" placeholder="Nouvelles tâches" ng-model="t.newtask">
-        <button ng-click="addTask(list._id,t.newtask)"> </button>
-
-
-    </div>
     <div class="container">
-        <form ng-submit="addList()">
-            <input type="text2"  class="fadeIn second"  placeholder="Nom de la liste " ng-model="Data.name">
-            <input type="text2"  class="fadeIn third"  placeholder="Petite description" ng-model="Data.description">
-            <input type="submit" class="fadeIn fourth" value="Ajouter">
-        </form>
+            <form ng-submit="addList()">
+                <input type="text2"  class="fadeIn second"  placeholder="Nom de la liste " ng-model="Data.name">
+                <!--<input type="text2"  class="fadeIn third"  placeholder="Petite description" ng-model="Data.description">-->
+                <input type="submit" class="btn btn-primary btn-sm" value="Ajouter">
+            </form>
+        </div>
+   
+    <div class="text-primary" ng-repeat="list in listes">
+            <div class="card">
+                    <h5 class="card-header">
+                        <button type="button" class="btn btn-outline-success" >
+                            {{list.name}}
+                        </button>
+                        <button class="btn btn-danger" ng-click="deleteList(list._id)">  
+                            x
+                        </button></h5>
+                    <div class="card-body">
+                        
+                      <h5 class="card-title">Les tâches de {{list.name}}</h5>
+                      <p class="card-text"> 
+                            <button type="button" class="btn btn-dark" >
+                                 <span class="badge badge-pill badge-light" ng-repeat="t in list.tasks">
+                                     {{t.name}} 
+                                     <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                            
+                                          </div>
+                                 </span> 
+                                 
+                                
+                            </button>
+                            <br>
+                            <input type="text2" class="form-control-plaintext" placeholder="add task" ng-model="t.newtask">
+                                <button class="btn btn-success" ng-click="addTask(list._id,t.newtask)"> + </button>
+                        </p>
+                      
+                    </div>
+                  </div>
+        
+        <hr>
+
+
     </div>
+
 
     <hr>
 

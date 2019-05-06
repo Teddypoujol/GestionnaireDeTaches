@@ -5,7 +5,9 @@ var listeSchema = new mongoose.Schema({
     description: String,
     tasks: [
         {
-        champs: String
+        
+        name: String,
+        done: Boolean
     }
     ]
 

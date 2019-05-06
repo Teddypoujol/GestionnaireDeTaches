@@ -58,26 +58,44 @@ router.post('/addTask', (req, res)=> {
 		cookies = JSON.parse(cookies.cookies);
 		console.log(cookies);
 
-		liste._id = req.body._id;
-		tasks = req.body.tasks;
-	
-		liste.save(function(err){
+		list_id = req.body._id;
+		
+		var task = {
+			name: req.body.name,
+			done: false 
+		};
+
+		Liste.updateOne({_id: list_id}, {$addToSet : {tasks: task}}, function(err){
 			if(err) return handleError(err);
-
-			User.findOne({list: cookies.list}, function(err, response){
-				if(err) return handleError(err);
-
-				User.updateOne({username: cookies.username}, {$addToSet : {listes: liste._id}}, function(err){
-					if(err) return handleError(err);
-					res.status(200).send({Error: "Ajoutée"})
-				});
-			});
-		});		
+			res.status(200).send({Error: "Ajoutée"})
+		});
 
 	}
 	
 
 });
+
+router.post('/deleteTask/:id', (req, res)=> {
+	
+		if(req.headers.cookie === undefined){
+			res.status(500).send({error : "Merci de vous connecter."});
+		} else {			
+			var cookies = req.headers.cookie;
+			cookies = cookie.parse(cookies);
+			cookies = JSON.parse(cookies.cookies);
+	
+			Liste.tasks.findOneAndRemove({_id:req.params.id}, function(err, response){
+				if(err) return handleError(err);
+				var change = {$pull: {tasks: {$in: req.params.id}}};
+				
+				Liste.updateOne({_id: list_id},change, function(err,result){
+					if(err) return handleError(err);
+					res.status(200).send({Error: "Supprimée"})
+				});
+			});
+		}
+	});
+
 
 
 
@@ -120,17 +138,17 @@ router.get('/getTask', (req, res)=> {
 		cookies = cookie.parse(cookies);
 		cookies = JSON.parse(cookies.cookies);
 
-		User.findOne({username: cookies.username}, function(err, response){
+		Liste.findOne({username: cookies.username}, function(err, response){
 			console.log(response);
 			if(err) return handleError(err);
 			if(response){
-				var query = {_id : {$in: response.listes}};
-				Liste.find(query, function(err, liste){
+				var query = {_id : {$in: response.listes.tasks}};
+				Liste.find(query, function(err, task){
 					if(err) throw err;
-					if(!liste){
+					if(!task){
 						res.status(200).send({});
 					} else {
-						res.status(200).send(liste.tasks);
+						res.status(200).send(task);
 					}
 				});
 			} else {
