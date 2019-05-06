@@ -47,6 +47,41 @@ router.post('/new', (req, res)=> {
 
 });
 
+router.post('/addTask', (req, res)=> {
+	if(req.headers.cookie === undefined){
+		res.status(500).send({error : "Merci de vous connecter."});
+	} else {
+		
+		
+		var cookies = req.headers.cookie;
+		cookies = cookie.parse(cookies);
+		cookies = JSON.parse(cookies.cookies);
+		console.log(cookies);
+
+		liste._id = req.body._id;
+		tasks = req.body.tasks;
+	
+		liste.save(function(err){
+			if(err) return handleError(err);
+
+			User.findOne({list: cookies.list}, function(err, response){
+				if(err) return handleError(err);
+
+				User.updateOne({username: cookies.username}, {$addToSet : {listes: liste._id}}, function(err){
+					if(err) return handleError(err);
+					res.status(200).send({Error: "Ajoutée"})
+				});
+			});
+		});		
+
+	}
+	
+
+});
+
+
+
+
 
 router.get('/get', (req, res)=> {
 	if(req.headers.cookie === undefined){
@@ -67,6 +102,35 @@ router.get('/get', (req, res)=> {
 						res.status(200).send({});
 					} else {
 						res.status(200).send(liste);
+					}
+				});
+			} else {
+				res.status(200).send({});
+			}
+	}
+		)}
+});
+
+
+router.get('/getTask', (req, res)=> {
+	if(req.headers.cookie === undefined){
+		res.status(500).send({error : "Merci de vous connecter."});
+	} else {			
+		var cookies = req.headers.cookie;
+		cookies = cookie.parse(cookies);
+		cookies = JSON.parse(cookies.cookies);
+
+		User.findOne({username: cookies.username}, function(err, response){
+			console.log(response);
+			if(err) return handleError(err);
+			if(response){
+				var query = {_id : {$in: response.listes}};
+				Liste.find(query, function(err, liste){
+					if(err) throw err;
+					if(!liste){
+						res.status(200).send({});
+					} else {
+						res.status(200).send(liste.tasks);
 					}
 				});
 			} else {
@@ -101,6 +165,10 @@ router.get('listes/:id', (req, res)=> {
 	},
 	err => res.status(500).send(err));
 });
+
+
+
+	
 
 
 

@@ -16,7 +16,7 @@ todoApp.controller('EspaceCtrl',['$cookies','$scope', '$state','$http', function
     $scope.addList = function(){
         var liste = {
             name: $scope.Data.name,
-            description: $scope.Data.description,
+            description: $scope.Data.description
         };
         $http({
             method: 'POST',
@@ -29,6 +29,30 @@ todoApp.controller('EspaceCtrl',['$cookies','$scope', '$state','$http', function
             console.log('Error: ' + err.data.error);
         });
     };
+
+    $scope.addTask = function (list_id, newtask) {
+        if ($scope.user.token != "") {
+            var task = {
+                _id: list_id,
+                name: newtask,
+                
+            };
+            $http({
+                method: 'POST',
+                url: 'listes/addTask',
+                data: list
+            }).then(function successCallback(response){
+                callback(response);
+            }, function errorCallback(err){
+                console.log('Error: ' + err.data.error);
+            });
+
+        } else {
+            alert("Merci de vous reconnecter.");
+
+        }
+    };
+
 
     $scope.deleteList = function(list_id){
         $http({
