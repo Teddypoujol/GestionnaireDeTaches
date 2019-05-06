@@ -84,11 +84,11 @@ router.post('/deleteTask/:id', (req, res)=> {
 			cookies = cookie.parse(cookies);
 			cookies = JSON.parse(cookies.cookies);
 	
-			Liste.tasks.findOneAndRemove({_id:req.params.id}, function(err, response){
+			Liste.tasks.findOne({_id:req.params.id}, function(err, response){
 				if(err) return handleError(err);
 				var change = {$pull: {tasks: {$in: req.params.id}}};
 				
-				Liste.updateOne({_id: list_id},change, function(err,result){
+				Liste.updateMany({_id: list_id, "tasks.done": true},change, function(err,result){
 					if(err) return handleError(err);
 					res.status(200).send({Error: "Supprimée"})
 				});
